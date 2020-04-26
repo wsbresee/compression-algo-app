@@ -1,0 +1,20 @@
+
+# misc
+.DS_Store
+
+# npm
+node_modules
+
+# Flask
+venv
+__pycache__
+
+# React 
+public/src*
+public/index.html
+
+#idk
+.cache
+
+# vscode
+.vscode
