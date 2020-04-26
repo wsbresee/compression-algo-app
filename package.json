@@ -5,8 +5,12 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "run-s build start-server",
     "start-server": "flask run",
-    "build": "parcel build src/index.html --out-dir public"
+    "build": "parcel build src/index.html --out-dir public",
+    "flask-install": "run-s build-venv build-flask",
+    "build-venv": "python3 -m venv venv",
+    "build-flask": "source venv/bin/activate & pip install flask python-dotenv"
   },
   "repository": {
     "type": "git",
@@ -31,6 +35,7 @@
     "babel-preset-env": "^1.7.0",
     "babel-preset-react": "^6.24.1",
     "cssnano": "^4.1.10",
+    "npm-run-all": "^4.1.5",
     "parcel-bundler": "^1.12.4"
   }
 }
