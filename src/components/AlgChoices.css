@@ -1,0 +1,28 @@
+#alg-choices {
+  width: 40%;
+  padding: 30px;
+}
+
+#alg-choices ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  border: 2px solid #714bfa;
+}
+
+#alg-choices li {
+  padding: 20px;
+  text-align: center;
+  border-bottom: 2px solid #714bfa;
+  transition: color 0.2s, background-color 0.2s;
+}
+
+#alg-choices li:hover {
+  background-color: #714bfaf1;
+  color: #fff;
+  transition: color 0.5s, background-color 0.5s;
+}
+
+#alg-choices ul:last-child {
+  border-bottom: none;
+}
