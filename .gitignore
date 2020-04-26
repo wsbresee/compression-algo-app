@@ -2,9 +2,18 @@
 # misc
 .DS_Store
 
+# npm
+node_modules
+
 # Flask
 venv
 __pycache__
+
+# React 
+public/src*
+
+#idk
+.cache
 
 # vscode
 .vscode
