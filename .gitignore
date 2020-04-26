@@ -1,0 +1,10 @@
+
+# misc
+.DS_Store
+
+# Flask
+venv
+__pycache__
+
+# vscode
+.vscode
