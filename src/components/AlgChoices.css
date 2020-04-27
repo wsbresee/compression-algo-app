@@ -17,8 +17,15 @@
   transition: color 0.2s, background-color 0.2s;
 }
 
+#alg-choices li.chosen,
+#alg-choices li.chosen:hover {
+  background-color: #714bfa;
+  color: #fff;
+  transition: background-color 0.2s;
+}
+
 #alg-choices li:hover {
-  background-color: #714bfaf1;
+  background-color: #714bfae9;
   color: #fff;
   transition: color 0.5s, background-color 0.5s;
 }
