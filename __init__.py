@@ -1,4 +1,6 @@
 from flask import Flask, jsonify, send_from_directory, request
+import algorithms_for_app.PCA
+
 
 app = Flask(__name__, static_url_path="", static_folder="/public")
 
@@ -19,7 +21,14 @@ def send_alg_choices():
 @app.route('/compress', methods=['POST'])
 def compress_file():
     print(request.files['file'])
-    return jsonify([1, 2, 3, 4])
+    pca = PCA.PCA(request.files['file'], 50)
+    json = (('name', pca.getName()),
+            ('pre_compression', pca.getPreCompressedAudioAsArray()),
+            ('post_compression', pca.getPostCompressedAudioAsArray()),
+            ('loss', pca.getLoss()),
+            ('loss_sum', pca.getLossSum()),
+            ('features', pca.getCompressed()))
+    return jsonify(json)
 
 
 @app.route('/<path>')
