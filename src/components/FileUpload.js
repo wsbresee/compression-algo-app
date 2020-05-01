@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faFileAudio } from '@fortawesome/free-solid-svg-icons';
+import HasUpload from './HasUpload';
+import EmptyUpload from './EmptyUpload';
 
 import './FileUpload.css';
 
@@ -68,7 +68,7 @@ class FileUpload extends React.Component {
   handleChange(e) {
     e.preventDefault();
 
-    this.props.chooseFile(e.target.files[0]);
+    if (e.target.files[0]) this.props.chooseFile(e.target.files[0]);
   }
 
   componentDidMount() {
@@ -92,23 +92,16 @@ class FileUpload extends React.Component {
     const fileName = this.props.file.name || '';
     return (
       <div id="file-upload">
-        <h2>{fileName === '' ? 'Upload A File' : ''}</h2>
         <div
           id="upload-box"
           ref={this.dropRef}
           className={dragging ? 'dragging' : fileName !== '' ? 'has-file' : ''}
         >
-          {fileName !== '' && <FontAwesomeIcon icon={faFileAudio} size="6x" />}
-          <h4>{fileName}</h4>
-
-          <input
-            type="file"
-            name="file"
-            id="file"
-            className="inputfile"
-            onChange={this.handleChange}
-          />
-          <label htmlFor="file">Choose a file</label>
+          {fileName === '' ? (
+            <EmptyUpload handleChange={this.handleChange} />
+          ) : (
+            <HasUpload handleChange={this.handleChange} fileName={fileName} />
+          )}
         </div>
         {fileName !== '' && (
           <button

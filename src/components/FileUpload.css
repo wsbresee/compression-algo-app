@@ -1,6 +1,7 @@
 #file-upload {
   width: 40%;
   padding: 30px;
+  margin-top: 4.16em;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -10,7 +11,7 @@
   border: 2px dashed #714bfa;
   height: 60%;
   width: 100%;
-  color: #714bfa;
+  color: #714bfacc;
 
   display: flex;
   flex-direction: column;
@@ -20,14 +21,28 @@
 
 #upload-box.dragging {
   border: 2px dashed #714bfaaa;
-  color: #714bfaaa;
+  color: #714bfaaa !important;
 }
 
 #upload-box.has-file {
   border: none;
+  color: #714bfa;
 }
 
-.inputfile {
+.input-label {
+  cursor: pointer;
+}
+
+.input-label:hover {
+  text-decoration: underline;
+}
+
+.hidden {
+  position: absolute;
+  visibility: hidden;
+}
+
+.input-file {
   visibility: hidden;
   position: absolute;
 }
