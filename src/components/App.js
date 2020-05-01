@@ -4,11 +4,12 @@ import './App.css';
 import Topbar from './Topbar';
 import AlgChoices from './AlgChoices';
 import FileUpload from './FileUpload';
+import LoadingScreen from './LoadingScreen';
 
 class App extends React.Component {
   constructor() {
     super();
-    this.state = { algChoice: null, file: {} };
+    this.state = { algChoice: null, file: {}, results: {}, loading: false };
     this.chooseAlg = this.chooseAlg.bind(this);
     this.chooseFile = this.chooseFile.bind(this);
     this.compressFile = this.compressFile.bind(this);
@@ -29,9 +30,9 @@ class App extends React.Component {
       const formData = new FormData();
 
       formData.append('file', file, file.filename);
-
+      this.setState({ loading: true });
       axios.post('/compress', formData, {}).then(({ data }) => {
-        console.log(data);
+        this.setState({ loading: false, results: data });
       });
     }
   }
@@ -45,7 +46,7 @@ class App extends React.Component {
   render() {
     const algs = this.state.algs || [];
 
-    const { algChoice, file } = this.state;
+    const { algChoice, file, loading } = this.state;
     const { chooseAlg, chooseFile, compressFile } = this;
 
     return (
@@ -58,6 +59,7 @@ class App extends React.Component {
             chooseFile={chooseFile}
             compressFile={compressFile}
           />
+          {loading && <LoadingScreen />}
         </div>
       </React.Fragment>
     );
