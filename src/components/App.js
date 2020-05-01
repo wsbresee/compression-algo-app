@@ -11,6 +11,7 @@ class App extends React.Component {
     this.state = { algChoice: null, file: {} };
     this.chooseAlg = this.chooseAlg.bind(this);
     this.chooseFile = this.chooseFile.bind(this);
+    this.chooseParam = this.chooseParam.bind(this);
     this.compressFile = this.compressFile.bind(this);
   }
 
@@ -22,13 +23,19 @@ class App extends React.Component {
     this.setState({ file });
   }
 
+  chooseParam(param) {
+    this.setState({ param });
+  }
+
   compressFile() {
     if (this.state.file.name) {
       const file = new Blob([this.state.file]);
+      const param = this.state.param
 
       const formData = new FormData();
 
       formData.append('file', file, file.filename);
+      formData.append('param', param);
 
       axios.post('/compress', formData, {}).then(({ data }) => {
         console.log(data);
