@@ -7,23 +7,27 @@
 }
 
 #upload-box {
-  border: 2px dashed #714bfaaa;
+  border: 2px dashed #714bfa;
   height: 60%;
   width: 100%;
+  color: #714bfa;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#upload-box.dragging {
+  border: 2px dashed #714bfaaa;
   color: #714bfaaa;
 }
 
-button {
-  color: #fff;
-  background-color: #714bfa;
-  font-variant: small-caps;
-  font-size: 11pt;
-  letter-spacing: 1pt;
-  font-weight: bold;
-  margin: 25px;
-  width: 200px;
-  height: 50px;
-  border-radius: 50px;
+#upload-box.has-file {
+  border: none;
+}
 
-  border: 1px solid rgba(46, 11, 242, 0.255);
+.inputfile {
+  visibility: hidden;
+  position: absolute;
 }
