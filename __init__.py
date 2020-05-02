@@ -8,8 +8,7 @@ import numpy as np
 
 app = Flask(__name__, static_url_path="", static_folder="/public")
 
-algs = ["Algorithm 1", "Algorithm 2",
-        "Algorithm 3", 'Algorithm 4']
+algs = ["PCA"]
 
 @app.route('/')
 def send_index():
