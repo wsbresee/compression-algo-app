@@ -1,5 +1,4 @@
 import React, { useRef, useEffect } from 'react';
-import Warp from 'warpjs';
 
 import './LoadingScreen.css';
 
@@ -7,7 +6,36 @@ const LoadingScreen = () => {
   const ref = useRef(null);
 
   useEffect(() => {
-    const paths = ref.current.childNodes[0].childNodes;
+    let elements = Array.from(ref.current.childNodes[0].childNodes);
+    elements = elements.sort((ele1, ele2) => {
+      const string1 =
+        Object.values(ele2)[1].d || 'M' + Object.values(ele2)[1].points;
+      const string2 =
+        Object.values(ele1)[1].d || 'M' + Object.values(ele1)[1].points;
+
+      if (string1 && string2) {
+        if (string1.split(',')[0] > string2.split(',')) {
+          return -1;
+        } else if (string1.split(',')[0] < string2.split(',')) {
+          return 1;
+        } else {
+          return 0;
+        }
+      }
+    });
+
+    let i = 0;
+    const interval = setInterval(() => {
+      if (i === elements.length) {
+        elements.forEach(path => path.setAttribute('style', 'fill-opacity:0'));
+        i = 0;
+      } else {
+        elements[i].setAttribute('style', 'fill-opacity:1');
+        i++;
+      }
+    }, 50);
+
+    return () => clearInterval(interval);
   }, []);
 
   return (
