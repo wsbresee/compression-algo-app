@@ -1,5 +1,8 @@
 import React from 'react';
 
+import HasUpload from './HasUpload';
+import EmptyUpload from './EmptyUpload';
+
 import './FileUpload.css';
 
 class FileUpload extends React.Component {
@@ -8,12 +11,14 @@ class FileUpload extends React.Component {
     this.dropRef = React.createRef();
     this.state = {
       dragging: false,
+      dragCount: 0,
     };
 
     this.handleDrag = this.handleDrag.bind(this);
     this.handleDragIn = this.handleDragIn.bind(this);
     this.handleDragOut = this.handleDragOut.bind(this);
     this.handleDrop = this.handleDrop.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
 
   handleDragIn(e) {
@@ -21,7 +26,10 @@ class FileUpload extends React.Component {
     e.stopPropagation();
 
     if (e.dataTransfer.items && e.dataTransfer.items.length > 0) {
-      this.setState({ dragging: true });
+      this.setState(state => ({
+        dragging: true,
+        dragCount: state.dragCount + 1,
+      }));
     }
   }
 
@@ -29,7 +37,11 @@ class FileUpload extends React.Component {
     e.preventDefault();
     e.stopPropagation();
 
-    this.setState({ dragging: false });
+    this.setState(state => {
+      const dragCount = state.dragCount - 1;
+
+      return { dragCount, dragging: dragCount > 0 };
+    });
   }
 
   handleDrag(e) {
@@ -41,7 +53,7 @@ class FileUpload extends React.Component {
     e.preventDefault();
     e.stopPropagation();
 
-    this.setState({ dragging: false });
+    this.setState({ dragging: false, dragCount: 0 });
 
     if (e.dataTransfer.files && e.dataTransfer.files.length > 0) {
       const files = e.dataTransfer.files;
@@ -49,9 +61,14 @@ class FileUpload extends React.Component {
       if (files.length === 1) {
         this.props.chooseFile(files[0]);
       }
-
       e.dataTransfer.clearData();
     }
+  }
+
+  handleChange(e) {
+    e.preventDefault();
+
+    if (e.target.files[0]) this.props.chooseFile(e.target.files[0]);
   }
 
   componentDidMount() {
@@ -72,20 +89,29 @@ class FileUpload extends React.Component {
 
   render() {
     const { dragging } = this.state;
-    const fileName = this.props.file.name || '.wav';
+    const fileName = this.props.file.name || '';
     return (
       <div id="file-upload">
-        <h2>Upload A File</h2>
         <div
           id="upload-box"
           ref={this.dropRef}
-          className={dragging ? 'dragging' : ''}
+          className={dragging ? 'dragging' : fileName !== '' ? 'has-file' : ''}
         >
-          <h4>{fileName}</h4>
+          {fileName === '' ? (
+            <EmptyUpload handleChange={this.handleChange} />
+          ) : (
+            <HasUpload handleChange={this.handleChange} fileName={fileName} />
+          )}
         </div>
-        <button type="button" onClick={this.props.compressFile}>
-          compress
-        </button>
+        {fileName !== '' && (
+          <button
+            type="button"
+            id="compress-button"
+            onClick={this.props.compressFile}
+          >
+            compress
+          </button>
+        )}
       </div>
     );
   }
