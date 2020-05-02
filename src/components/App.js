@@ -9,7 +9,7 @@ import LoadingScreen from './LoadingScreen';
 class App extends React.Component {
   constructor() {
     super();
-    this.state = { algChoice: null, file: {}, results: {}, loading: true };
+    this.state = { algChoice: null, file: {}, results: {}, loading: false };
     this.chooseAlg = this.chooseAlg.bind(this);
     this.chooseFile = this.chooseFile.bind(this);
     this.compressFile = this.compressFile.bind(this);
