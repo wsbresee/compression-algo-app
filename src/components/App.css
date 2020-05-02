@@ -26,6 +26,7 @@ h2 {
   display: flex;
   justify-content: space-around;
   height: 90vh;
+  position: relative;
 }
 
 button {
