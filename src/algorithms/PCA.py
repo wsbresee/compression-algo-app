@@ -6,8 +6,6 @@ from functools import *
 class PCA:
 
     def __init__(self, audioFile, otherParam):
-        if len(audioFile) == 2:
-            audioFile = audioFile[0]
         self.audioFile = audioFile
         self.numComponents = otherParam
         self.preCompressedAudio = audioFile
@@ -25,7 +23,7 @@ class PCA:
         self.postCompressedAudio = np.reshape(np.dot(
                                                 pca.transform(data)[:,:nComp],
                                                 pca.components_[:nComp,:]) + mu,
-                                              (-1))
+                                              (-1))[:-numZeros]
 
         self.compressed = pca.transform(data)
 
@@ -49,3 +47,11 @@ class PCA:
 
     def getCompressed(self):
         return self.compressed
+
+    def getPackagedJson(self):
+        return [['name', self.getName()],
+                ['pre_compression', self.getPreCompressedAudioAsArray().tolist()],
+                ['post_compression', self.getPostCompressedAudioAsArray().tolist()],
+                ['loss', self.getLoss().tolist()],
+                ['loss_sum', self.getLossSum()],
+                ['features', self.getCompressed().tolist()]]
