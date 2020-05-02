@@ -21,8 +21,8 @@ def send_alg_choices():
 def compress_file():
     # TODO replace all this with API handlers
     algorithm = "PCA group"
-    filename = 'tempxxxx'
-    otherParam = 20
+    filename = 'temp'
+    otherParam = 5
 
     request.files['file'].save(filename)
     algorithmRouter = AlgorithmRouter(algorithm, filename, otherParam)

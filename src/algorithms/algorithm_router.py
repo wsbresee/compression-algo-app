@@ -26,9 +26,10 @@ class AlgorithmRouter:
                 self.sampleRate = theFile[1]
                 audioFiles.append(samples)
             self.algorithm = PCAGroup(audioFiles, otherParam)
+        postCompressedAudioFile = 'temp.mp3'
         aft.librosa_to_mp3_path(\
                 self.algorithm.getPostCompressedAudioAsArray(),\
-                "audio_1",\
+                postCompressedAudioFile,\
                 sr=self.sampleRate)
 
     def getPackagedJson(self):
