@@ -48,7 +48,7 @@ class PCA:
     def getCompressed(self):
         return self.compressed
 
-    def getPackage(self):
+    def getPackagedJson(self):
         return [['name', self.getName()],
                 ['pre_compression', self.getPreCompressedAudioAsArray().tolist()],
                 ['post_compression', self.getPostCompressedAudioAsArray().tolist()],

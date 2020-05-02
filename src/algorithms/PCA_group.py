@@ -3,7 +3,7 @@ from sklearn import decomposition
 from sklearn import datasets
 from functools import *
 
-class PCA_group:
+class PCAGroup:
 
     def __init__(self, audioFiles, otherParam):
         self.data = audioFiles
@@ -21,12 +21,14 @@ class PCA_group:
         pca.fit(data)
 
         self.postCompressedAudio = (np.dot(pca.transform(data)[:,:nComp],
-            pca.components_[:nComp,:]) + mu)[0][:-numZeros[0]]
+            pca.components_[:nComp,:]) + mu)[0]
+        if numZeros[0] > 0:
+            self.postCompressedAudio = self.postCompressedAudio[:-numZeros[0]]
 
         self.compressed = pca.transform(data)
 
     def getName(self):
-        return "PCA_group"
+        return "PCA group"
 
     def getPreCompressedAudioAsArray(self):
         return self.preCompressedAudio
@@ -46,7 +48,7 @@ class PCA_group:
     def getCompressed(self):
         return self.compressed
 
-    def getPackage(self):
+    def getPackagedJson(self):
         return [['name', self.getName()],
                 ['pre_compression', self.getPreCompressedAudioAsArray().tolist()],
                 ['post_compression', self.getPostCompressedAudioAsArray().tolist()],
