@@ -69,8 +69,12 @@ class App extends React.Component {
       <React.Fragment>
         <Topbar />
         <div className="contents">
-          <div>
-            <AlgChoices algs={algs} chooseAlg={chooseAlg} algChoice={algChoice} />
+          <div className="left-side">
+            <AlgChoices
+              algs={algs}
+              chooseAlg={chooseAlg}
+              algChoice={algChoice}
+            />
             <Parameter
               chooseParam={chooseParam}
               paramChoice={paramChoice}
@@ -82,6 +86,16 @@ class App extends React.Component {
             compressFile={compressFile}
           />
           {loading && <LoadingScreen />}
+        </div>
+        <div className="results">
+          <div className="graph">
+          </div>
+          <div className="graph">
+          </div>
+          <div className="graph">
+          </div>
+          <div className="playback">
+          </div>
         </div>
       </React.Fragment>
     );
