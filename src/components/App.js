@@ -31,9 +31,15 @@ class App extends React.Component {
 
       formData.append('file', file, file.filename);
       this.setState({ loading: true });
-      axios.post('/compress', formData, {}).then(({ data }) => {
-        this.setState({ loading: false, results: data });
-      });
+      axios
+        .post('/compress', formData, {})
+        .then(({ data }) => {
+          this.setState({ loading: false, results: data });
+        })
+        .catch(err => {
+          this.setState({ loading: false });
+          console.log(err);
+        });
     }
   }
 

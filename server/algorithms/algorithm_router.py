@@ -1,9 +1,10 @@
 import os
-from src.algorithms.PCA import PCA
-from src.algorithms.PCA_group import PCAGroup
-import src.helpers.audio_file_transformations as aft
+from server.algorithms.PCA import PCA
+from server.algorithms.PCA_group import PCAGroup
+import server.helpers.audio_file_transformations as aft
 import sys
 import zipfile
+
 
 class AlgorithmRouter:
 
@@ -26,10 +27,10 @@ class AlgorithmRouter:
                 self.sampleRate = theFile[1]
                 audioFiles.append(samples)
             self.algorithm = PCAGroup(audioFiles, otherParam)
-        aft.librosa_to_mp3_path(\
-                self.algorithm.getPostCompressedAudioAsArray(),\
-                "audio_1",\
-                sr=self.sampleRate)
+        aft.librosa_to_mp3_path(
+            self.algorithm.getPostCompressedAudioAsArray(),
+            "audio_1",
+            sr=self.sampleRate)
 
     def getPackagedJson(self):
         return self.algorithm.getPackagedJson()
