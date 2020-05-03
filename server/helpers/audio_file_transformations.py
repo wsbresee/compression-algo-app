@@ -3,12 +3,13 @@ import librosa
 import soundfile as sf
 import os
 
-def librosa_from_mp3_path(file):
-    a = AudioSegment.from_mp3(file)
-    os.remove(file)
-    a.export(file[:-4] + '.wav', format='wav')
-    theFile = librosa.load(file[:-4] + '.wav', sr=None)
-    os.remove(file[:-4] + '.wav')
+def librosa_from_mp3_path(filename):
+    a = AudioSegment.from_mp3(filename)
+    os.remove(filename)
+    tempfile = filename + '.wav'
+    a.export(tempfile, format='wav')
+    theFile = librosa.load(tempfile, sr=None)
+    os.remove(tempfile)
     return theFile
 
 def librosa_to_mp3_path(file, filename, sr=44100):
@@ -17,8 +18,9 @@ def librosa_to_mp3_path(file, filename, sr=44100):
         sr = file[1]
     else:
         samples = file
-    sf.write(filename[:-4] + '.wav', samples, sr, format='wav')
-    a = AudioSegment.from_wav(filename[:-4] + '.wav')
+    tempfile = filename + '.wav'
+    sf.write(tempfile, samples, sr, format='wav')
+    a = AudioSegment.from_wav(tempfile)
     a.export(filename, format='mp3')
-    os.remove(filename[:-4] + '.wav')
+    os.remove(tempfile)
     return filename

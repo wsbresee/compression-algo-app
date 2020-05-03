@@ -25,8 +25,7 @@ def compress_file():
     # TODO replace all this with API handlers
     algorithm = request.form.get('algChoice')
     otherParam = int(request.form.get('paramChoice'))
-    filename = 'temp.mp3'
-
+    filename = 'temporary'
     request.files['file'].save(filename)
     algorithmRouter = AlgorithmRouter(algorithm, filename, otherParam)
     json = algorithmRouter.getPackagedJson()
