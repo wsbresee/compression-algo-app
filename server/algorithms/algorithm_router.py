@@ -1,9 +1,10 @@
 import os
-from src.algorithms.PCA import PCA
-from src.algorithms.PCA_group import PCAGroup
-import src.helpers.audio_file_transformations as aft
+from server.algorithms.PCA import PCA
+from server.algorithms.PCA_group import PCAGroup
+import server.helpers.audio_file_transformations as aft
 import sys
 import zipfile
+
 
 class AlgorithmRouter:
 

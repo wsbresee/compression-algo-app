@@ -3,6 +3,7 @@ from sklearn import decomposition
 from sklearn import datasets
 from functools import *
 
+
 class PCAGroup:
 
     def __init__(self, audioFiles, otherParam):
@@ -14,14 +15,15 @@ class PCAGroup:
         lengthOfDataPoint = max(list(map(lambda x: len(x), data)))
         numZeros = list(map(lambda x: lengthOfDataPoint - len(x), data))
         data = zip(data, numZeros)
-        data = list(map(lambda x: np.append(np.array(x[0]), np.zeros(x[1])), data))
+        data = list(map(lambda x: np.append(
+            np.array(x[0]), np.zeros(x[1])), data))
         nComp = self.numComponents
         mu = np.mean(data, axis=0)
         pca = decomposition.PCA()
         pca.fit(data)
 
-        self.postCompressedAudio = (np.dot(pca.transform(data)[:,:nComp],
-            pca.components_[:nComp,:]) + mu)[0]
+        self.postCompressedAudio = (np.dot(pca.transform(data)[:, :nComp],
+                                           pca.components_[:nComp, :]) + mu)[0]
         if numZeros[0] > 0:
             self.postCompressedAudio = self.postCompressedAudio[:-numZeros[0]]
 
