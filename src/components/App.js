@@ -52,6 +52,7 @@ class App extends React.Component {
         .post('/compress', formData, {})
         .then(({ data }) => {
           this.setState({ loading: false, results: data });
+          console.log(data);
         })
         .catch(err => {
           this.setState({ loading: false });

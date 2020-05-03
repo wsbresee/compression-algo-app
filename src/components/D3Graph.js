@@ -6,38 +6,26 @@ export default {
       .select(el)
       .append('svg')
       .attr('class', 'd3')
-      .attr('width', props.width)
-      .attr('height', props.height);
+      .attr('viewBox', [0, 0, props.width, props.height]);
 
-    svg.append('g').attr('class', 'd3-points');
+    svg.append('g');
 
     this.update(el, state);
   },
 
   update: function(el, state) {
     const scales = this._scales(el, state.domain);
-    this._drawPoints(el, scales, state.data);
+    this._drawGraph(el, scales, state.data);
   },
 
   destroy: function(el) {},
 
-  _drawPoints: function(el, scales, data) {
+  _drawGraph: function(el, scales, data) {
     const g = d3.select(el).selectAll('.d3-points');
 
-    const point = g.selectAll('.d3-point').data(data, function(d) {
+    const rects = g.selectAll('rect').data(data, function(d) {
       return d.id;
     });
-
-    point
-      .enter()
-      .append('circle')
-      .attr('class', 'd3-point');
-
-    point.attr('cx', function(d) {
-      return scales.x(d.x);
-    });
-
-    point.exit().remove();
   },
 
   _scales: function(el, domain) {
