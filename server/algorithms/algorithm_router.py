@@ -9,12 +9,12 @@ import zipfile
 class AlgorithmRouter:
 
     def __init__(self, algorithm, filename, otherParam):
-        if algorithm == "PCA":
+        if algorithm == '0':
             theFile = aft.librosa_from_mp3_path(filename[:-4] + ".mp3")
             samples = theFile[0]
             self.sampleRate = theFile[1]
             self.algorithm = PCA(samples, otherParam)
-        elif algorithm == "PCA group":
+        elif algorithm == '1':
             directory = filename + "_directory/"
             for aFile in os.listdir(directory):
                 os.remove(directory + aFile)
