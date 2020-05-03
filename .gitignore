@@ -13,8 +13,11 @@ __pycache__
 public/src*
 public/index.html
 
-#idk
+# idk
 .cache
 
 # vscode
 .vscode
+
+# temp
+temp*
