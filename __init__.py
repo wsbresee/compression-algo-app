@@ -27,17 +27,6 @@ def compress_file():
     request.files['file'].save(filename)
     algorithmRouter = AlgorithmRouter(algorithm, filename, otherParam)
     json = algorithmRouter.getPackagedJson()
-
-    # old
-    # filename = 'temp.mp3'
-    # request.files['file'].save(filename)
-    # theFile = aft.librosa_from_mp3_path(filename)
-    # samples = theFile[0]
-    # sr = theFile[1]
-    # pca = PCA.PCA(samples, 50)
-    # aft.librosa_to_mp3_path(pca.getPostCompressedAudioAsArray(),\
-    #                         filename,
-    #                         sr=sr)
     return jsonify(json)
 
 @app.route('/<path>')
