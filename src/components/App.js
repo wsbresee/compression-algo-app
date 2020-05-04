@@ -6,7 +6,7 @@ import AlgChoices from './AlgChoices';
 import Parameter from './Parameter';
 import FileUpload from './FileUpload';
 import LoadingScreen from './LoadingScreen';
-import Graph from './Graph';
+import Results from './Results';
 
 class App extends React.Component {
   constructor() {
@@ -72,35 +72,6 @@ class App extends React.Component {
     const { algChoice, paramChoice, file, loading, results } = this.state;
     const { chooseAlg, chooseParam, chooseFile, compressFile } = this;
 
-    const getMax = arr => {
-      let len = arr.length;
-      let max = -Infinity;
-
-      while (len--) {
-        max = arr[len] > max ? arr[len] : max;
-      }
-      return max;
-    };
-
-    const getMin = arr => {
-      let len = arr.length;
-      let min = Infinity;
-
-      while (len--) {
-        min = arr[len] < min ? arr[len] : min;
-      }
-      return min;
-    };
-
-    let preprocess;
-    if (results[1] && results[1][1]) {
-      preprocess = results[1][1];
-    } else {
-      preprocess = [];
-    }
-
-    // const preprocess = [1, 2, 6, 5, 3, 5, 8, 5, 2, 3, 2, 5, 4, 6, 5, 4, 4];
-
     return (
       <React.Fragment>
         <Topbar />
@@ -120,17 +91,7 @@ class App extends React.Component {
           />
           {loading && <LoadingScreen />}
         </div>
-        <div className="results">
-          {preprocess.length > 0 && (
-            <Graph
-              data={preprocess}
-              domain={{
-                x: [0, preprocess.length - 1],
-                y: [getMin(preprocess), getMax(preprocess)],
-              }}
-            />
-          )}
-        </div>
+        <Results results={results} />
       </React.Fragment>
     );
   }
