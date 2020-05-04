@@ -1,38 +1,56 @@
 import * as d3 from 'd3';
 
 export default {
-  create: function(el, props, state) {
+  create: function(el, state) {
     const svg = d3
       .select(el)
       .append('svg')
-      .attr('class', 'd3')
-      .attr('viewBox', [0, 0, props.width, props.height]);
+      .attr('transform', `translate(${state.margin}, ${state.margin})`)
+      .attr('class', 'd3-graph');
 
-    svg.append('g');
+    const { x, y } = this._scales(el, state.domain, state.margin);
+
+    svg.append('g').call(d3.axisLeft(y));
+
+    svg
+      .append('g')
+      .attr(
+        'transform',
+        `translate(${state.margin},${el.offsetHeight - state.margin})`
+      )
+      .call(d3.axisBottom(x));
 
     this.update(el, state);
   },
 
   update: function(el, state) {
-    const scales = this._scales(el, state.domain);
-    this._drawGraph(el, scales, state.data);
+    const scales = this._scales(el, state.domain, state.margin);
+    this._drawGraph(el, scales, state);
   },
 
   destroy: function(el) {},
 
-  _drawGraph: function(el, scales, data) {
-    const g = d3.select(el).selectAll('.d3-points');
+  _drawGraph: function(el, scales, state) {
+    const svg = d3.select('.d3-graph');
 
-    const rects = g.selectAll('rect').data(data, function(d) {
-      return d.id;
-    });
+    const { data, margin } = state;
+    svg
+      .selectAll('rect')
+      .data(data)
+      .enter()
+      .append('rect')
+      .attr('x', d => scales.x(d.x))
+      .attr('y', d => scales.y(d.y))
+      .attr('width', d => scales.x(0.95))
+      .attr('height', d => el.offsetHeight - scales.y(d.y) - margin)
+      .style('fill', '#714bfa');
   },
 
-  _scales: function(el, domain) {
+  _scales: function(el, domain, margin) {
     if (!domain) return null;
 
-    const width = el.offsetWidth;
-    const height = el.offsetHeight;
+    const width = el.offsetWidth - 2 * margin;
+    const height = el.offsetHeight - 2 * margin;
 
     const x = d3
       .scaleLinear()
@@ -44,11 +62,6 @@ export default {
       .range([height, 0])
       .domain(domain.y);
 
-    const z = d3
-      .scaleLinear()
-      .range([5, 20])
-      .domain([1, 10]);
-
-    return { x, y, z };
+    return { x, y };
   },
 };

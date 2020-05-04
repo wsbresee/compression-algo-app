@@ -1,21 +1,16 @@
 import React from 'react';
 import D3Graph from './D3Graph';
+import './Graph.css';
 
 class Graph extends React.Component {
   constructor() {
     super();
     this.DOMNode = React.createRef(null);
+    this.getGraphState = this.getGraphState.bind(this);
   }
   componentDidMount() {
     const el = this.DOMNode.current;
-    D3Graph.create(
-      el,
-      {
-        width: '100%',
-        height: '300px',
-      },
-      this.getGraphState()
-    );
+    D3Graph.create(el, this.getGraphState());
   }
 
   componentDidUpdate() {
@@ -24,9 +19,13 @@ class Graph extends React.Component {
   }
 
   getGraphState() {
+    const data = this.props.data.map((val, i) => ({ x: i, y: val }));
+    const margin = 10;
+
     return {
-      data: this.props.data,
+      data,
       domain: this.props.domain,
+      margin,
     };
   }
 

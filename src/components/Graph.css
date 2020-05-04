@@ -1,0 +1,9 @@
+.graph {
+  height: 45vh;
+  width: 100%;
+}
+
+.graph svg {
+  height: 100%;
+  width: 100%;
+}

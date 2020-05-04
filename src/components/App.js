@@ -15,7 +15,7 @@ class App extends React.Component {
       algChoice: null,
       paramChoice: null,
       file: {},
-      results: {},
+      results: [],
       loading: false,
     };
     this.chooseAlg = this.chooseAlg.bind(this);
@@ -52,7 +52,6 @@ class App extends React.Component {
         .post('/compress', formData, {})
         .then(({ data }) => {
           this.setState({ loading: false, results: data });
-          console.log(data);
         })
         .catch(err => {
           this.setState({ loading: false });
@@ -70,13 +69,37 @@ class App extends React.Component {
   render() {
     const algs = this.state.algs || [];
 
-    const { algChoice, paramChoice, file, loading } = this.state;
+    const { algChoice, paramChoice, file, loading, results } = this.state;
     const { chooseAlg, chooseParam, chooseFile, compressFile } = this;
 
-    const data = [
-      { id: '5fbmzmtc', x: 7, y: 41, z: 6 },
-      { id: 's4f8phwm', x: 11, y: 45, z: 9 },
-    ];
+    const getMax = arr => {
+      let len = arr.length;
+      let max = -Infinity;
+
+      while (len--) {
+        max = arr[len] > max ? arr[len] : max;
+      }
+      return max;
+    };
+
+    const getMin = arr => {
+      let len = arr.length;
+      let min = Infinity;
+
+      while (len--) {
+        min = arr[len] < min ? arr[len] : min;
+      }
+      return min;
+    };
+
+    // let preprocess;
+    // if (results[1] && results[1][1]) {
+    //   preprocess = results[1][1];
+    // } else {
+    //   preprocess = [];
+    // }
+
+    const preprocess = [1, 2, 6, 5, 3, 5, 8, 5, 2, 3, 2, 5, 4, 6, 5, 4, 4];
 
     return (
       <React.Fragment>
@@ -98,7 +121,15 @@ class App extends React.Component {
           {loading && <LoadingScreen />}
         </div>
         <div className="results">
-          <Graph data={data} domain={{ x: [0, 30], y: [0, 100] }} />
+          {preprocess.length > 0 && (
+            <Graph
+              data={preprocess}
+              domain={{
+                x: [0, preprocess.length - 1],
+                y: [getMin(preprocess), getMax(preprocess)],
+              }}
+            />
+          )}
         </div>
       </React.Fragment>
     );
