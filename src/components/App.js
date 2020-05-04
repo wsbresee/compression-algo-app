@@ -7,6 +7,7 @@ import Parameter from './Parameter';
 import FileUpload from './FileUpload';
 import LoadingScreen from './LoadingScreen';
 import Graph from './Graph';
+import AudioPlayer from './AudioPlayer';
 
 class App extends React.Component {
   constructor() {
@@ -130,6 +131,9 @@ class App extends React.Component {
               }}
             />
           )}
+        </div>
+        <div>
+          <AudioPlayer />
         </div>
       </React.Fragment>
     );

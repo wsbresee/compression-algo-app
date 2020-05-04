@@ -8,18 +8,22 @@ import zipfile
 
 class AlgorithmRouter:
 
-    def __init__(self, algorithm, fileOrDirectory, otherParam):
+    def __init__(self, algorithm, file, otherParam):
+        filename = 'beforePCA.mp3'
         if algorithm == '0':
-            theFile = aft.librosa_from_mp3_path(fileOrDirectory)
+            file.save(filename)
+            theFile = aft.librosa_from_mp3_path(filename)
             samples = theFile[0]
             self.sampleRate = theFile[1]
             self.algorithm = PCA(samples, otherParam)
         elif algorithm == '1':
+            zipname = 'temp.zip'
             directory = 'temp/'
+            file.save(zipname)
             if os.path.isdir(directory):
                 for file in os.listdir(directory):
                     os.remove(directory + file)
-            with zipfile.ZipFile(fileOrDirectory, 'r') as zip_ref:
+            with zipfile.ZipFile(zipname, 'r') as zip_ref:
                 zip_ref.extractall(directory)
             audioFiles = []
             for filename in os.listdir(directory):
@@ -32,9 +36,13 @@ class AlgorithmRouter:
                 for file in os.listdir(directory):
                     os.remove(directory + file)
             os.rmdir(directory)
+            aft.librosa_to_mp3_path(\
+                    self.algorithm.getPreCompressedAudioAsArray(),\
+                    'beforePCA.mp3',\
+                    sr=self.sampleRate)
         aft.librosa_to_mp3_path(\
                 self.algorithm.getPostCompressedAudioAsArray(),\
-                fileOrDirectory + '_after.mp3',\
+                'afterPCA.mp3',\
                 sr=self.sampleRate)
 
     def getPackagedJson(self):
