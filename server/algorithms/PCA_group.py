@@ -2,6 +2,7 @@ import numpy as np
 from sklearn import decomposition
 from sklearn import datasets
 from functools import *
+from server.helpers.graph_helper import *
 
 
 class PCAGroup:
@@ -52,8 +53,11 @@ class PCAGroup:
 
     def getPackagedJson(self):
         return [['name', self.getName()],
-                ['pre_compression', self.getPreCompressedAudioAsArray().tolist()],
-                ['post_compression', self.getPostCompressedAudioAsArray().tolist()],
-                ['loss', self.getLoss().tolist()],
+                ['pre_compression', convertArrayToSize( \
+                        self.getPreCompressedAudioAsArray().tolist(), 1000)],
+                ['post_compression', convertArrayToSize( \
+                        self.getPostCompressedAudioAsArray().tolist(), 1000)],
+                ['loss', convertArrayToSize( \
+                        self.getLoss().tolist(), 1000)],
                 ['loss_sum', self.getLossSum()],
                 ['features', self.getCompressed().tolist()]]
