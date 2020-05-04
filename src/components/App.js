@@ -92,14 +92,14 @@ class App extends React.Component {
       return min;
     };
 
-    // let preprocess;
-    // if (results[1] && results[1][1]) {
-    //   preprocess = results[1][1];
-    // } else {
-    //   preprocess = [];
-    // }
+    let preprocess;
+    if (results[1] && results[1][1]) {
+      preprocess = results[1][1];
+    } else {
+      preprocess = [];
+    }
 
-    const preprocess = [1, 2, 6, 5, 3, 5, 8, 5, 2, 3, 2, 5, 4, 6, 5, 4, 4];
+    // const preprocess = [1, 2, 6, 5, 3, 5, 8, 5, 2, 3, 2, 5, 4, 6, 5, 4, 4];
 
     return (
       <React.Fragment>
