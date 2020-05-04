@@ -6,11 +6,18 @@ import AlgChoices from './AlgChoices';
 import Parameter from './Parameter';
 import FileUpload from './FileUpload';
 import LoadingScreen from './LoadingScreen';
+import Results from './Results';
 
 class App extends React.Component {
   constructor() {
     super();
-    this.state = { algChoice: null, paramChoice: null, file: {}, results: {}, loading: false };
+    this.state = {
+      algChoice: null,
+      paramChoice: null,
+      file: {},
+      results: [],
+      loading: false,
+    };
     this.chooseAlg = this.chooseAlg.bind(this);
     this.chooseParam = this.chooseParam.bind(this);
     this.chooseFile = this.chooseFile.bind(this);
@@ -32,8 +39,8 @@ class App extends React.Component {
   compressFile() {
     if (this.state.file.name) {
       const file = new Blob([this.state.file]);
-      const algChoice = this.state.algChoice
-      const paramChoice = this.state.paramChoice
+      const algChoice = this.state.algChoice;
+      const paramChoice = this.state.paramChoice;
 
       const formData = new FormData();
 
@@ -62,7 +69,7 @@ class App extends React.Component {
   render() {
     const algs = this.state.algs || [];
 
-    const { algChoice, paramChoice, file, loading } = this.state;
+    const { algChoice, paramChoice, file, loading, results } = this.state;
     const { chooseAlg, chooseParam, chooseFile, compressFile } = this;
 
     return (
@@ -75,10 +82,7 @@ class App extends React.Component {
               chooseAlg={chooseAlg}
               algChoice={algChoice}
             />
-            <Parameter
-              chooseParam={chooseParam}
-              paramChoice={paramChoice}
-            />
+            <Parameter chooseParam={chooseParam} paramChoice={paramChoice} />
           </div>
           <FileUpload
             file={file}
@@ -87,16 +91,7 @@ class App extends React.Component {
           />
           {loading && <LoadingScreen />}
         </div>
-        <div className="results">
-          <div className="graph">
-          </div>
-          <div className="graph">
-          </div>
-          <div className="graph">
-          </div>
-          <div className="playback">
-          </div>
-        </div>
+        <Results results={results} />
       </React.Fragment>
     );
   }
