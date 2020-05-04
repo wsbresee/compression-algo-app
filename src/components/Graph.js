@@ -20,12 +20,13 @@ class Graph extends React.Component {
 
   getGraphState() {
     const data = this.props.data.map((val, i) => ({ x: i, y: val }));
-    const margin = 10;
+    const margin = 50;
 
     return {
       data,
       domain: this.props.domain,
       margin,
+      name: this.props.name,
     };
   }
 

@@ -5,12 +5,13 @@ export default {
     const svg = d3
       .select(el)
       .append('svg')
-      .attr('transform', `translate(${state.margin}, ${state.margin})`)
-      .attr('class', 'd3-graph');
-
+      .attr('id', state.name);
     const { x, y } = this._scales(el, state.domain, state.margin);
 
-    svg.append('g').call(d3.axisLeft(y));
+    svg
+      .append('g')
+      .call(d3.axisLeft(y))
+      .attr('transform', `translate(${state.margin},${state.margin})`);
 
     svg
       .append('g')
@@ -31,7 +32,7 @@ export default {
   destroy: function(el) {},
 
   _drawGraph: function(el, scales, state) {
-    const svg = d3.select('.d3-graph');
+    const svg = d3.select(`#${state.name}`);
 
     const { data, margin } = state;
     svg
@@ -41,8 +42,9 @@ export default {
       .append('rect')
       .attr('x', d => scales.x(d.x))
       .attr('y', d => scales.y(d.y))
-      .attr('width', d => scales.x(0.95))
-      .attr('height', d => el.offsetHeight - scales.y(d.y) - margin)
+      .attr('width', d => scales.x(1))
+      .attr('height', d => el.offsetHeight - scales.y(d.y) - 2 * margin)
+      .attr('transform', `translate(${margin},${margin})`)
       .style('fill', '#714bfa');
   },
 
