@@ -26,8 +26,8 @@ def compress_file():
     algorithm = request.form.get('algChoice')
     otherParam = int(request.form.get('paramChoice'))
     filename = 'temporary'
-    request.files['file'].save(filename)
-    algorithmRouter = AlgorithmRouter(algorithm, filename, otherParam)
+    file = request.files['file']
+    algorithmRouter = AlgorithmRouter(algorithm, file, otherParam)
     json = algorithmRouter.getPackagedJson()
     return jsonify(json)
 

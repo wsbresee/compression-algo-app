@@ -20,12 +20,13 @@ class Graph extends React.Component {
 
   getGraphState() {
     const data = this.props.data.map((val, i) => ({ x: i, y: val }));
-    const margin = 10;
+    const margin = 50;
 
     return {
       data,
       domain: this.props.domain,
       margin,
+      name: this.props.name,
     };
   }
 
@@ -35,7 +36,12 @@ class Graph extends React.Component {
   }
 
   render() {
-    return <div className="graph" ref={this.DOMNode} />;
+    return (
+      <div className="graph-display">
+        <h3 className="graph-title">{this.props.name}</h3>
+        <div className="graph" ref={this.DOMNode} />
+      </div>
+    );
   }
 }
 
