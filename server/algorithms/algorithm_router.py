@@ -36,13 +36,13 @@ class AlgorithmRouter:
                 for file in os.listdir(directory):
                     os.remove(directory + file)
             os.rmdir(directory)
-            aft.librosa_to_mp3_path(\
-                    self.algorithm.getPreCompressedAudioAsArray(),\
-                    'beforePCA.mp3',\
-                    sr=self.sampleRate)
+        aft.librosa_to_mp3_path(\
+                self.algorithm.getPreCompressedAudioAsArray(),\
+                'public/beforePCA.mp3',\
+                sr=self.sampleRate)
         aft.librosa_to_mp3_path(\
                 self.algorithm.getPostCompressedAudioAsArray(),\
-                'afterPCA.mp3',\
+                'public/afterPCA.mp3',\
                 sr=self.sampleRate)
 
     def getPackagedJson(self):

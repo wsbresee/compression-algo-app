@@ -1,7 +1,7 @@
 import React from "react";
 
-const beforePCA = "beforePCA.mp3";
-const afterPCA = "afterPCA.mp3";
+const beforePCA = "public/beforePCA.mp3";
+const afterPCA = "public/afterPCA.mp3";
 
 function getTime(time) {
   if (!isNaN(time)) {

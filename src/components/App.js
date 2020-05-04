@@ -94,6 +94,7 @@ class App extends React.Component {
           {loading && <LoadingScreen />}
         </div>
         <Results results={results} />
+        <AudioPlayer />
       </React.Fragment>
     );
   }
