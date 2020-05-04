@@ -90,7 +90,7 @@ class AudioPlayer extends React.Component {
 
     return (
       <>
-        <h1>My Little Player</h1>
+        <h1>Listen:</h1>
         <ul>{list}</ul>
         <div>
           {this.state.player === "paused" && (
