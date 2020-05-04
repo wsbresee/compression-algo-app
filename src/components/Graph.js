@@ -36,7 +36,12 @@ class Graph extends React.Component {
   }
 
   render() {
-    return <div className="graph" ref={this.DOMNode} />;
+    return (
+      <div className="graph-display">
+        <h3 className="graph-title">{this.props.name}</h3>
+        <div className="graph" ref={this.DOMNode} />
+      </div>
+    );
   }
 }
 
