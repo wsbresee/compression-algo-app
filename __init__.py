@@ -8,7 +8,6 @@ app = Flask(__name__, static_url_path="", static_folder="/public")
 
 algs = ["PCA", "PCA group"]
 
-
 @app.route('/')
 def send_index():
     return send_from_directory("public", "index.html")

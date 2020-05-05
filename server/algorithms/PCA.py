@@ -12,13 +12,13 @@ class PCA:
         self.preCompressedAudio = audioFile
 
         data = np.array(audioFile)
-        lengthOfDataPoint = 100000
+        lengthOfDataPoint = 1000
         numZeros = lengthOfDataPoint - (len(data) % lengthOfDataPoint)
         data = np.append(data, np.zeros(numZeros))
         data = np.reshape(data, (-1, lengthOfDataPoint))
         nComp = self.numComponents
         mu = np.mean(data, axis=0)
-        pca = decomposition.PCA()
+        pca = decomposition.PCA(n_components=nComp)
         pca.fit(data)
 
         self.postCompressedAudio = np.reshape(np.dot(
@@ -26,7 +26,7 @@ class PCA:
                                                 pca.components_[:nComp,:]) + mu,
                                               (-1))[:-numZeros]
 
-        self.compressed = pca.transform(data)
+        self.features = pca.transform(data)
 
     def getName(self):
         return "PCA"
@@ -46,8 +46,8 @@ class PCA:
         loss = reduce(lambda a, b: a + b, loss)
         return abs(loss)
 
-    def getCompressed(self):
-        return self.compressed
+    def getFeatures(self):
+        return self.features
 
     def getPackagedJson(self):
         return [['name', self.getName()],
@@ -58,4 +58,4 @@ class PCA:
                 ['loss', convertArrayToSize( \
                         self.getLoss().tolist(), 1000)],
                 ['loss_sum', self.getLossSum()],
-                ['features', self.getCompressed().tolist()]]
+                ['features', self.getFeatures().tolist()]]

@@ -1,3 +1,4 @@
+import csv
 import os
 from server.algorithms.PCA import PCA
 from server.algorithms.PCA_group import PCAGroup
@@ -44,6 +45,9 @@ class AlgorithmRouter:
                 self.algorithm.getPostCompressedAudioAsArray(),\
                 'public/afterPCA.mp3',\
                 sr=self.sampleRate)
+        with open("public/features.csv", "w") as f:
+            writer = csv.writer(f)
+            writer.writerows(self.algorithm.getFeatures())
 
     def getPackagedJson(self):
         return self.algorithm.getPackagedJson()

@@ -28,7 +28,7 @@ class PCAGroup:
         if numZeros[0] > 0:
             self.postCompressedAudio = self.postCompressedAudio[:-numZeros[0]]
 
-        self.compressed = pca.transform(data)
+        self.features = pca.transform(data)
 
     def getName(self):
         return "PCA group"
@@ -48,8 +48,8 @@ class PCAGroup:
         loss = reduce(lambda a, b: a + b, loss)
         return abs(loss)
 
-    def getCompressed(self):
-        return self.compressed
+    def getFeatures(self):
+        return self.features
 
     def getPackagedJson(self):
         return [['name', self.getName()],
@@ -60,4 +60,4 @@ class PCAGroup:
                 ['loss', convertArrayToSize( \
                         self.getLoss().tolist(), 1000)],
                 ['loss_sum', self.getLossSum()],
-                ['features', self.getCompressed().tolist()]]
+                ['features', self.getFeatures().tolist()]]
