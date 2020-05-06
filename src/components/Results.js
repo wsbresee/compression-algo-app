@@ -32,6 +32,11 @@ const Results = props => {
     preProcess = results[1][1];
     postProcess = results[2][1];
     loss = results[3][1];
+    freqPre = results[4][1];
+    freqPost = results[5][1];
+    freqLoss = results[6][1];
+    lossVsNumComponents = results[7][1];
+
   } else {
     preProcess = [];
     postProcess = [];
