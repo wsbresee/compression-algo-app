@@ -38,16 +38,16 @@ class AlgorithmRouter:
                     os.remove(directory + file)
             os.rmdir(directory)
         aft.librosa_to_mp3_path(\
-                self.algorithm.getPreCompressedAudioAsArray(),\
+                self.algorithm.preCompressedAudio,\
                 'public/beforePCA.mp3',\
                 sr=self.sampleRate)
         aft.librosa_to_mp3_path(\
-                self.algorithm.getPostCompressedAudioAsArray(),\
+                self.algorithm.postCompressedAudio,\
                 'public/afterPCA.mp3',\
                 sr=self.sampleRate)
         with open("public/features.csv", "w") as f:
             writer = csv.writer(f)
-            writer.writerows(self.algorithm.getFeatures())
+            writer.writerows(self.algorithm.features)
 
     def getPackagedJson(self):
         return self.algorithm.getPackagedJson()
