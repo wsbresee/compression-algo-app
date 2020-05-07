@@ -77,6 +77,10 @@ class App extends React.Component {
     return (
       <React.Fragment>
         <Topbar />
+        <div className='title'>
+        <h1>"PCA and Audio Experimentation Station"</h1>
+        <p>"With this application, you can quickly and easily explore Principal Component Analysis with audio data. You’ll provide audio and choose the number of principal components you’d like to preserve. Then, the application will generate a number of visualizations of the impact of PCA on your audio data, with a particular focus on data integrity and signal loss.  </p>
+        </div>
         <div className="contents">
           <div className="left-side">
             <AlgChoices

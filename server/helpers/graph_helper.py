@@ -4,7 +4,7 @@ from sklearn import decomposition
 from functools import *
 
 def convertArrayToSize(inArray, size):
-    inPerOut = math.floor(len(inArray)/size)
+    inPerOut = max(math.floor(len(inArray)/size), 1)
     i = 0
     runningSum = 0
     outArray = []
@@ -41,14 +41,14 @@ def generateLossVsNumComp(data):
     lossVsNumComp = []
     lengthOfDataPoint = max(list(map(lambda x: len(x), data)))
     i = 0
-    while i < lengthOfDataPoint:
+    while i < lengthOfDataPoint and i < 100:
         pca = decomposition.PCA(n_components=i)
         pca.fit(data)
         reconstructed = (np.dot(pca.transform(data)[:, :i],
                          pca.components_[:i, :]) + mu)
         loss = reduce(lambda x, y: x + sum(y), reconstructed - data, 0)
         lossVsNumComp.append(loss)
-        i += 10
+        i += 1
     return lossVsNumComp
 
 def getLossSum(self):
@@ -60,17 +60,21 @@ def getLossSum(self):
 def myFFT(amplitude):
     fourierTransform = np.fft.fft(amplitude)/len(amplitude)
     fourierTransform = fourierTransform[range(int(len(amplitude)/2))]
-    i = 0
-    a = 0
-    while i < len(fourierTransform):
-        if i == a:
-            if a == 0:
-                a = a + 1
-            else:
-                a = a * 2
-        else:
-            fourierTransform[i] = False
-        i += 1
-    fourierTransform = list(filter(lambda a: type(a) != type(False), \
-                                   fourierTransform))
+#     i = 0
+#     a = 0
+#     s = 0
+#     while i < len(fourierTransform):
+#         if i == a:
+#             # fourierTransform[i] += s
+#             s = 0
+#             if a == 0:
+#                 a = a + 1
+#             else:
+#                 a = a * 2
+#         else:
+#             s += fourierTransform[i]
+#             fourierTransform[i] = -1.0
+#         i += 1
+#     fourierTransform = list(filter(lambda a: a != -1.0, \
+#                                    fourierTransform))
     return fourierTransform

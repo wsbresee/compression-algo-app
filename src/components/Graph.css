@@ -1,6 +1,7 @@
 .graph {
   height: 45vh;
   width: 100%;
+  padding: 20px;
 }
 
 .graph svg {

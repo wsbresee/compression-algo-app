@@ -9,7 +9,7 @@ class PCA:
 
     def __init__(self, audioFile, otherParam):
         data = np.array(audioFile)
-        lengthOfDataPoint = 1000
+        lengthOfDataPoint = 100
         numZeros = lengthOfDataPoint - (len(data) % lengthOfDataPoint)
         data = np.append(data, np.zeros(numZeros))
         data = np.reshape(data, (-1, lengthOfDataPoint))
