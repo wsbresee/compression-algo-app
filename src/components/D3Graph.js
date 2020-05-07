@@ -6,6 +6,7 @@ export default {
       .select(el)
       .append('svg')
       .attr('id', state.name);
+
     const { x, y } = this._scales(el, state.domain, state.margin);
 
     svg
@@ -20,6 +21,25 @@ export default {
         `translate(${state.margin},${el.offsetHeight - state.margin})`
       )
       .call(d3.axisBottom(x));
+
+    svg
+      .append('text')
+      .attr(
+        'transform',
+        `translate(${el.offsetWidth / 2},${el.offsetHeight - state.margin / 3})`
+      )
+      .style('text-anchor', 'middle')
+      .style('fill', '#714bfa')
+      .text(state.xaxis);
+
+    svg
+      .append('text')
+      .attr('transform', 'rotate(-90)')
+      .attr('y', state.margin / 3)
+      .attr('x', -el.offsetHeight / 2)
+      .style('text-anchor', 'middle')
+      .style('fill', '#714bfa')
+      .text(state.yaxis);
 
     this.update(el, state);
   },

@@ -66,15 +66,10 @@ button:focus {
 .left-side {
   display: flex;
   flex-direction: column;
+  width: 40%;
 }
 
 .results {
   display: grid;
   grid-template-columns: 1fr 1fr;
-}
-
-.graph {
-}
-
-.playback {
 }
