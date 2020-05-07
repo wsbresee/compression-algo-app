@@ -48,6 +48,8 @@ const Results = props => {
             x: [0, preProcess.length - 1],
             y: [getMin(preProcess), getMax(preProcess)],
           }}
+          xaxis="X Axis"
+          yaxis="Y Axis"
         />
       )}
       {postProcess.length > 0 && (
