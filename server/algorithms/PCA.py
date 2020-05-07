@@ -3,6 +3,7 @@ from sklearn import decomposition
 from sklearn import datasets
 from functools import *
 from server.helpers.graph_helper import *
+from scipy.fft import fftshift
 
 class PCA:
 
@@ -27,10 +28,12 @@ class PCA:
         self.preCompressedAudio = audioFile
         self.postCompressedAudio = postCompressedAudio
         self.lossVsNumComponents = generateLossVsNumComp(data)
-        self.freqPre = np.fft.fft(self.preCompressedAudio)
-        self.freqPost = np.fft.fft(self.postCompressedAudio)
-        self.freqLoss = self.freqPre - self.freqPost
+        self.freqPre = myFFT(self.preCompressedAudio)
+        self.freqPost = myFFT(self.postCompressedAudio)
+        self.freqLoss = myFFT((np.array(self.preCompressedAudio) \
+                - np.array(self.postCompressedAudio)).tolist())
         self.features = pca.transform(data)
 
     def getPackagedJson(self):
         return packageJson(self)
+

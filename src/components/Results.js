@@ -28,6 +28,10 @@ const Results = props => {
   let preProcess;
   let postProcess;
   let loss;
+  let freqPre;
+  let freqPost;
+  let freqLoss;
+  let lossVsNumComponents;
   if (results[1] && results[1][1]) {
     preProcess = results[1][1];
     postProcess = results[2][1];
@@ -41,6 +45,10 @@ const Results = props => {
     preProcess = [];
     postProcess = [];
     loss = [];
+    freqPre = [];
+    freqPost = [];
+    freqLoss = [];
+    lossVsNumComponents = [];
   }
 
   return (
@@ -48,6 +56,7 @@ const Results = props => {
       {preProcess.length > 0 && (
         <Graph
           name="PreProcess"
+          explanation="here is a generic explanation"
           data={preProcess}
           domain={{
             x: [0, preProcess.length - 1],
@@ -58,6 +67,7 @@ const Results = props => {
       {postProcess.length > 0 && (
         <Graph
           name="PostProcess"
+          explanation="here is a generic explanation"
           data={postProcess}
           domain={{
             x: [0, postProcess.length - 1],
@@ -68,10 +78,55 @@ const Results = props => {
       {loss.length > 0 && (
         <Graph
           name="Loss"
+          explanation="here is a generic explanation"
           data={loss}
           domain={{
             x: [0, loss.length - 1],
             y: [getMin(loss), getMax(loss)],
+          }}
+        />
+      )}
+      {loss.length > 0 && (
+        <Graph
+          name="PreProcessFFT"
+          explanation="here is a generic explanation"
+          data={freqPre}
+          domain={{
+            x: [0, freqPre.length - 1],
+            y: [getMin(freqPre), getMax(freqPre)],
+          }}
+        />
+      )}
+      {loss.length > 0 && (
+        <Graph
+          name="PostProcessFFT"
+          explanation="here is a generic explanation"
+          data={freqPost}
+          domain={{
+            x: [0, freqPost.length - 1],
+            y: [getMin(freqPost), getMax(freqPost)],
+          }}
+        />
+      )}
+      {loss.length > 0 && (
+        <Graph
+          name="FrequencyLoss"
+          explanation="here is a generic explanation"
+          data={freqLoss}
+          domain={{
+            x: [0, freqLoss.length - 1],
+            y: [getMin(freqLoss), getMax(freqLoss)],
+          }}
+        />
+      )}
+      {loss.length > 0 && (
+        <Graph
+          name="LossVsNumComponents"
+          explanation="here is a generic explanation"
+          data={lossVsNumComponents}
+          domain={{
+            x: [0, lossVsNumComponents.length - 1],
+            y: [getMin(lossVsNumComponents), getMax(lossVsNumComponents)],
           }}
         />
       )}
