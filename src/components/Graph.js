@@ -29,6 +29,7 @@ class Graph extends React.Component {
       name: this.props.name,
       xaxis: this.props.xaxis,
       yaxis: this.props.yaxis,
+      title: this.props.title,
     };
   }
 
@@ -40,7 +41,7 @@ class Graph extends React.Component {
   render() {
     return (
       <div className="graph-display">
-        <h3 className="graph-title">{this.props.name}</h3>
+        <h3 className="graph-title">{this.props.title}</h3>
         <div className="graph" ref={this.DOMNode} />
       </div>
     );
