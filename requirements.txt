@@ -1,0 +1,6 @@
+flask
+python-dotdev
+numpy
+sklearn
+pydub
+librosa
